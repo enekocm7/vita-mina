@@ -1,0 +1,10 @@
+{
+    "name": "vita-base",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "containerEnv": {
+        "VITASDK": "/usr/local/vitasdk"
+    },
+    "remoteUser": "root"
+}
