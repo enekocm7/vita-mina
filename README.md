@@ -28,6 +28,23 @@ Desktop keyboard controls are also available for testing: arrow keys, `Enter`/`S
 
 ## Build for PS Vita
 
+### Development container (recommended)
+
+The repository includes a [Dev Container](https://containers.dev/) configuration with VitaSDK, SDL2, CMake, and the other build tools preinstalled. Install Docker and use an editor with Dev Container support, such as Visual Studio Code with the **Dev Containers** extension.
+
+1. Clone and open the repository in your editor.
+2. Run **Dev Containers: Reopen in Container** from the command palette.
+3. Wait for the container image to finish building. The initial build can take several minutes while VitaSDK packages are installed.
+4. Build the VPK from the container terminal:
+
+```sh
+make
+```
+
+Inside the container, `VITASDK` is configured as `/usr/local/vitasdk`, and the SDK tools are already available on `PATH`. If `.devcontainer/Dockerfile` changes, run **Dev Containers: Rebuild Container** to apply the update.
+
+### Existing VitaSDK installation
+
 Install [VitaSDK](https://vitasdk.org/) and its SDL2 package, then ensure `VITASDK` is set. Build the installable package with:
 
 ```sh
