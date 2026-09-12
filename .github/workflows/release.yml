@@ -8,6 +8,9 @@ on:
 permissions:
   contents: write
 
+env:
+  VITASDK: /home/runner/vitasdk
+
 jobs:
   release:
     name: Build VPK and create release
@@ -17,16 +20,32 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Build VitaSDK container
-        run: docker build --tag vita-mina-builder .devcontainer
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes \
+            build-essential \
+            make \
+            git-core \
+            cmake \
+            wget \
+            python3 \
+            ca-certificates \
+            xz-utils \
+            bzip2 \
+            curl
+
+      - name: Install VitaSDK
+        run: |
+          git clone --depth 1 https://github.com/vitasdk/vdpm /tmp/vdpm
+          cd /tmp/vdpm
+          ./bootstrap-vitasdk.sh
+          chmod +x "$VITASDK/bin/pacman"
+          ./install-all.sh
+          echo "$VITASDK/bin" >> "$GITHUB_PATH"
 
       - name: Build VPK
-        run: >-
-          docker run --rm
-          --volume "${{ github.workspace }}:/workspace"
-          --workdir /workspace
-          vita-mina-builder
-          make
+        run: make
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
