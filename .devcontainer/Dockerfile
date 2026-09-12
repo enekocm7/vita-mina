@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y \
 RUN git clone https://github.com/vitasdk/vdpm /tmp/vdpm \
     && cd /tmp/vdpm \
     && ./bootstrap-vitasdk.sh \
+    && chmod +x "$VITASDK/bin/pacman" \
     && ./install-all.sh \
     && rm -rf /tmp/vdpm
 
