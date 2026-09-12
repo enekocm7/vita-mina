@@ -1,0 +1,36 @@
+name: Build and release VPK
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build VPK and create release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build VitaSDK container
+        run: docker build --tag vita-mina-builder .devcontainer
+
+      - name: Build VPK
+        run: >-
+          docker run --rm
+          --volume "${{ github.workspace }}:/workspace"
+          --workdir /workspace
+          vita-mina-builder
+          make
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/vita_minesweeper.vpk
+          generate_release_notes: true
+          fail_on_unmatched_files: true
