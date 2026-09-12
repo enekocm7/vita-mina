@@ -1,2 +1,14 @@
 CompileFlags:
     CompilationDatabase: build
+    Compiler: /usr/local/vitasdk/bin/arm-vita-eabi-g++
+    Remove:
+        - -Wl,*
+    Add:
+        - --target=arm-vita-eabi
+        - -I../src
+        - -isystem/usr/local/vitasdk/arm-vita-eabi/include/c++/15.2.0
+        - -isystem/usr/local/vitasdk/arm-vita-eabi/include/c++/15.2.0/arm-vita-eabi
+        - -isystem/usr/local/vitasdk/arm-vita-eabi/include/c++/15.2.0/backward
+        - -isystem/usr/local/vitasdk/lib/gcc/arm-vita-eabi/15.2.0/include
+        - -isystem/usr/local/vitasdk/lib/gcc/arm-vita-eabi/15.2.0/include-fixed
+        - -isystem/usr/local/vitasdk/arm-vita-eabi/include
