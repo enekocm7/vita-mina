@@ -1,8 +1,9 @@
 {
     "name": "vita-base",
-    "build": {
-        "dockerfile": "Dockerfile"
-    },
+    "image": "vitasdk/vitasdk",
+    "runArgs": [
+        "--platform=linux/amd64"
+    ],
     "containerEnv": {
         "VITASDK": "/usr/local/vitasdk"
     },
